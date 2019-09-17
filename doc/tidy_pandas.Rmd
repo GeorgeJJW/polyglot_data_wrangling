@@ -1,0 +1,74 @@
+---
+title: "Tidyverse style pandas"
+output: github_document
+---
+
+Adapted from Steven Morse's excellent [tutorial](https://stmorse.github.io/journal/tidyverse-style-pandas.html).
+
+```{r, include=F}
+library(tidyverse)
+library(gapminder)
+library(reticulate)
+```
+
+### Cheatsheet
+
+| dplyr | pandas |
+| -- | -- |
+| `filter` | `query` |
+| `mutate` | `assign` |
+| `group_by` | `groupby` |
+| `summarise` | `agg` |
+| `select` | `filter` |
+| `arrange` | `sort_values` |
+
+### R pipe example
+
+```{r, include=F}
+df <- as_tibble(gapminder)
+```
+
+```{r, warning=F}
+# pipe operator
+df %>% 
+  select(country, year, lifeExp) %>% 
+  filter(country == "Spain" | country == "Portugal") %>% 
+  mutate(days_to_live = lifeExp * 365.25) %>% 
+  group_by(year) %>% 
+  summarise(avg_days_to_live = mean(days_to_live)) %>% 
+  arrange(desc(year)) %>% 
+  head(5)
+```
+
+### Python method chaining example
+
+```{python, include=F}
+import pandas as pd
+df = pd.DataFrame(r.df)
+```
+
+```{python}
+# open parenthesis, allows inline comments
+(df
+  .filter(["country", "year", "lifeExp"])
+  .query('country == "Spain" or country == "Portugal"')
+  .assign(days_to_live = df["lifeExp"] * 365.25)
+  .groupby(["year"])
+  .agg(avg_days_to_live = ("days_to_live", "mean"))
+  .reset_index() # essentially ungroup()
+  .sort_values(by="avg_days_to_live", ascending=False)
+  .head(5))
+```
+
+```{python}
+# escape character also works
+df \
+  .filter(["country", "year", "lifeExp"]) \
+  .query('country == "Spain" or country == "Portugal"') \
+  .assign(days_to_live = df["lifeExp"] * 365.25) \
+  .groupby(["year"]) \
+  .agg(avg_days_to_live = ("days_to_live", "mean")) \
+  .reset_index() \
+  .sort_values(by="avg_days_to_live", ascending=False) \
+  .head(5)
+```
