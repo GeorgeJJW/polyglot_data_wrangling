@@ -47,3 +47,5 @@ functions](https://github.com/pandas-dev/pandas/issues/14207).
     ## 2    47.0   32.0  1504.0
     ## 3    46.0   31.0  1426.0
     ## 4    50.0   36.0  1800.0
+
+Get the [print-friendly version](dependent_assign.pdf).

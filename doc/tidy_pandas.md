@@ -79,3 +79,5 @@ df \
     ## 9   1997      28259.392500
     ## 8   1992      27837.528750
     ## 7   1987      27569.070000
+
+Get the [print-friendly cheatsheet](tidy_pandas.pdf).

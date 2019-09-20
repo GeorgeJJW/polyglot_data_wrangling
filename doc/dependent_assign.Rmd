@@ -46,3 +46,4 @@ df = pd.DataFrame(r.df)
   .head(5))
 ```
 
+Get the [print-friendly version](dependent_assign.pdf).

@@ -72,3 +72,5 @@ df \
   .sort_values(by="avg_days_to_live", ascending=False) \
   .head(5)
 ```
+
+Get the [print-friendly cheatsheet](tidy_pandas.pdf). 
